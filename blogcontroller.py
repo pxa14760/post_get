@@ -7,18 +7,19 @@ conn = sqlite3.connect("/home/base/blog.db")
 
 class post():
 	def POST():
+		tit = input("enter title: ")
+		data = input("enter data to enter in blog: ")
+		inser = [tit,data]
 		conn.execute("insert into posts (title, body) \
-			values ('Fifth Post', 'Fifth post content');")
+			values (?,?)", inser)
 		conn.commit()
 
 class posts():
-	def get():
+	def GET():
 		cursor = conn.execute("select * from posts;")
-		for row in cursor:
-			print(row[0])
-			print(row[1])
-			print(row[2])
+		getdata = {row[0] :[row[1], row[2]] for row in cursor}
+		print(getdata)
 
 post.POST()
-posts.get()
+posts.GET()
 
